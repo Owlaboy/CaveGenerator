@@ -6,8 +6,6 @@ from pygame import Rect
 from random import randint
 pygame.init()
 
-
-
 # Set up the drawing window
 screen = pygame.display.set_mode([1000, 500])
 
