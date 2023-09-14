@@ -2,15 +2,23 @@ from math import sqrt, acos, sin
 
 testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
 
+def distanceBetweenPoints(point1: tuple, point2: tuple):
+    return sqrt(((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2))
+
 class Edge:
     def __init__(self, point1, point2):
         self.point1 = point1
         self.point2 = point2
 
-        self.length = sqrt(((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2))
+        self.length = distanceBetweenPoints(point1, point2)
 
-def distanceBetweenPoints(point1: tuple, point2: tuple):
-    return sqrt(((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2))
+    def __eq__(self, other):
+        return (((self.point1 == other.point1) and (self.point2 == other.point2)) or ((self.point1 == other.point2) and (self.point2 == other.point1)))
+    
+    def __hash__(self):
+        return hash((self.point1, self.point2))
+
+
 
 class Triangle:
     def __init__(self, point1, point2, point3):
@@ -42,9 +50,9 @@ class Triangle:
     
 
 def BowyerWatson(roomCenterPoints):
-    SuperTriangle = Triangle((0,0), (2000,0), (0,1000))
+    superTriangle = Triangle((0,0), (2000,0), (0,1000))
 
-    triangulation = [SuperTriangle]
+    triangulation = [superTriangle]
 
     for point in roomCenterPoints:
         badTriangles = []
@@ -53,18 +61,18 @@ def BowyerWatson(roomCenterPoints):
             if triangle.checkIfPointIsWithinCirle(point):
                 badTriangles.append(triangle)
         
-        polygon = []
+        polygon = set()
         if len(badTriangles) == 1:
             polygon = badTriangles[0].sides
         else:
             for triangle in badTriangles: # Find the boundary of the polygonal hole
                 for side in triangle.sides:
-                    for otherTriangles in badTriangles:
-                        if otherTriangles == triangle:
+                    for otherBadTriangle in badTriangles:
+                        if otherBadTriangle == triangle:
                             continue
-                        for otherSide in otherTriangles:
-                            if otherSide != side:
-                                polygon.append(side)
+                        for otherSide in otherBadTriangle.sides:
+                            if not (otherSide == side):
+                                polygon.add(side)
         
         for triangle in badTriangles:
             triangulation.remove(triangle)
@@ -73,16 +81,25 @@ def BowyerWatson(roomCenterPoints):
             newTriangle = Triangle(edge.point1, edge.point2, point)
             triangulation.append(newTriangle)
 
-    for triangle in triangulation:
-        pass
+    finalTriangulation = []
 
-    return triangulation
+    for triangle in triangulation:
+        if triangle.pointA == (0,0) or triangle.pointA == (0,1000) or triangle.pointA == (2000,0):
+            continue 
+        elif triangle.pointB == (0,0) or triangle.pointB == (0,1000) or triangle.pointB == (2000,0):
+            continue 
+        elif triangle.pointC == (0,0) or triangle.pointC == (0,1000) or triangle.pointC == (2000,0):
+            continue 
+        else:
+            finalTriangulation.append(triangle)
+
+    return finalTriangulation
 
 
 if __name__ == "__main__":
     triangleboi = Triangle((0,0),(0,4),(4,0))
     
-
+    testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
     a = BowyerWatson(testingArray[:4])
     print(a)
     for triangle in a:

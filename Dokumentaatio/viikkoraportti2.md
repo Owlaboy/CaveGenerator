@@ -7,4 +7,6 @@
 - Luotu luokka kolmioille joka laskee myös kolmion ympyrän keskipisteen.
     - Luokalle luotu metodi joka pystyy kertomaan jos jokin piste on kolmion ympyrän sisällä.
 
-- Aloittettu Bowyer-Watson algoritmin työstäminen
+- Aloittettu Bowyer-Watson algoritmin työstäminen.
+
+- Melkein valmis Algoritmin kanssa. Ainoana osana jäänyt tällä hetkellä on väärien kolmioiden poistaminen.

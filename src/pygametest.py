@@ -4,6 +4,7 @@
 import pygame
 from pygame import Rect
 from random import randint
+from triangulator import Triangle, BowyerWatson
 pygame.init()
 
 # Set up the drawing window
@@ -38,6 +39,11 @@ def RoomPoints(generatedRooms: list):
 rooms = RoomRectGenerator(10)
 print(RoomPoints(rooms))
 
+testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
+a = BowyerWatson(RoomPoints(rooms))
+print(a)
+for triangle in a:
+    print(str(triangle))
 
 # Run until the user asks to quit
 running = True
@@ -52,6 +58,15 @@ while running:
     screen.fill((50, 50, 50))
 
     # Draw a solid blue circle in the center
+    for triangle in a:
+        pygame.draw.line(screen,(0,255,255), triangle.pointA, triangle.pointB)
+        pygame.draw.line(screen,(0,255,255), triangle.pointB, triangle.pointC)
+        pygame.draw.line(screen,(0,255,255), triangle.pointA, triangle.pointC)
+        
+        pygame.draw.circle(screen, (255,255,255), triangle.pointA, 2)
+        pygame.draw.circle(screen, (255,255,255), triangle.pointB, 2)
+        pygame.draw.circle(screen, (255,255,255), triangle.pointC, 2)
+
     for room in rooms:
         pygame.draw.rect(screen, (255,255,255), room)
 
