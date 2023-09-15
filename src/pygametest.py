@@ -17,13 +17,11 @@ def RoomRectGenerator(RoomCount):
     i = 0
     while i < RoomCount:
         new = Rect(((randint(10,890),randint(10,490)), (randint(20,80),randint(20,80))))
-        print(new.collidelistall(generatedRooms))
         if new.collidelistall(generatedRooms) == []:
             generatedRooms.append(new)
             i += 1
         else:
             collidingRooms.append(new)
-    print(generatedRooms)
     return generatedRooms
 
 def RoomPoints(generatedRooms: list):
@@ -37,11 +35,9 @@ def RoomPoints(generatedRooms: list):
     
 
 rooms = RoomRectGenerator(10)
-print(RoomPoints(rooms))
 
 testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
-a = BowyerWatson(RoomPoints(rooms))
-print(a)
+a = BowyerWatson(testingArray[:4])
 for triangle in a:
     print(str(triangle))
 

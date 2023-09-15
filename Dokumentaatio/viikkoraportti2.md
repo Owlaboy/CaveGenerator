@@ -9,4 +9,4 @@
 
 - Aloittettu Bowyer-Watson algoritmin työstäminen.
 
-- Melkein valmis Algoritmin kanssa. Ainoana osana jäänyt tällä hetkellä on väärien kolmioiden poistaminen.
+- Algoritmin generoi kolmiot väärin. Palautetut kolmiot menevät päällekkäin. Luultavasti virhe on huonojen kolmioiden poistamisessa ja uusien kolmioiden luomisessa.

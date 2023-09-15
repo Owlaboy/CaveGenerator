@@ -43,6 +43,9 @@ class Triangle:
 
     def __str__(self):
         return f"{self.pointA} ,{self.pointB}, {self.pointC}"
+    
+    def __eq__(self, other):
+        return ((self.pointA == other.pointA) and (self.pointB == other.pointB) and (self.pointC == other.pointC))
 
     def checkIfPointIsWithinCirle(self, point):
         return distanceBetweenPoints(point, self.circleCenter) <= self.radius
@@ -74,12 +77,29 @@ def BowyerWatson(roomCenterPoints):
                             if not (otherSide == side):
                                 polygon.add(side)
         
+
+        print("-"*20)
+        for triangle in triangulation:
+            print(str(triangle))
+
+        print("*"*20)
         for triangle in badTriangles:
-            triangulation.remove(triangle)
+            print(str(triangle))
+
+        for triangle in badTriangles:
+            i = 0
+            while i < len(triangulation):
+                if triangle == triangulation[i]:
+                    triangulation.pop(i)
+                    print("removed a triangle")
+                else:
+                    i += 1
         
+
         for edge in polygon:
             newTriangle = Triangle(edge.point1, edge.point2, point)
             triangulation.append(newTriangle)
+            print(f"added: {str(newTriangle)}")
 
     finalTriangulation = []
 
