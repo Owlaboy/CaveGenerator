@@ -37,7 +37,7 @@ def RoomPoints(generatedRooms: list):
 rooms = RoomRectGenerator(10)
 
 testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
-a = BowyerWatson(testingArray[:4])
+a = BowyerWatson(testingArray[:], 1000, 500)
 for triangle in a:
     print(str(triangle))
 

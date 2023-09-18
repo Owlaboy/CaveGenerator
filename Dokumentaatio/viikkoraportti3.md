@@ -1,0 +1,1 @@
+- luotu ohjelmalle tiedosto joka aloittaa ohjelman halutulla tavalla.
