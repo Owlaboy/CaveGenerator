@@ -49,17 +49,19 @@ def display(sizeX, sizeY, roomCount):
 
         screen.fill((50, 50, 50))
 
+        for room in rooms:
+            pygame.draw.rect(screen, (255,255,255), room)
+
         for triangle in triangulation:
-            pygame.draw.line(screen,(0,255,255), triangle.pointA, triangle.pointB)
-            pygame.draw.line(screen,(0,255,255), triangle.pointB, triangle.pointC)
-            pygame.draw.line(screen,(0,255,255), triangle.pointA, triangle.pointC)
+            pygame.draw.line(screen,(255, 0, 0), triangle.pointA, triangle.pointB)
+            pygame.draw.line(screen,(255, 0, 0), triangle.pointB, triangle.pointC)
+            pygame.draw.line(screen,(255, 0, 0), triangle.pointA, triangle.pointC)
             
             pygame.draw.circle(screen, (255,255,255), triangle.pointA, 2)
             pygame.draw.circle(screen, (255,255,255), triangle.pointB, 2)
             pygame.draw.circle(screen, (255,255,255), triangle.pointC, 2)
 
-        for room in rooms:
-            pygame.draw.rect(screen, (255,255,255), room)
+        
 
 
         pygame.display.flip()

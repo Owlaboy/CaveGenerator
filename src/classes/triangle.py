@@ -7,6 +7,7 @@ from classes.edge import Edge
 
 class Triangle:
     def __init__(self, point1, point2, point3):
+        pointList = [point1, point2, point3]
         self.pointA = point1
         self.pointB = point2
         self.pointC = point3
