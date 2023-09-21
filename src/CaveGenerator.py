@@ -15,6 +15,6 @@ if __name__ == "__main__":
 
     roomCount = input("How many rooms would you like your cave to have? default 10. ")
     if roomCount  == "":
-        roomCount = 4
+        roomCount = 10
 
-    display(int(sizeX), int(sizeY), roomCount)
+    display(int(sizeX), int(sizeY), int(roomCount))

@@ -7,13 +7,15 @@ from random import randint
 from triangulator import Triangle, BowyerWatson
 
 
-def RoomRectGenerator(RoomCount):
+def RoomRectGenerator(sizeX, sizeY, RoomCount):
     generatedRooms = []
     collidingRooms = []
 
     i = 0
     while i < RoomCount:
-        new = Rect(((randint(10,890),randint(10,490)), (randint(20,80),randint(20,80))))
+        width = randint(20,80)
+        height = randint(20,80)
+        new = Rect(((randint(10,sizeX-(10 + width)),randint(10,sizeY-(10 + height))), (width, height)))
         if new.collidelistall(generatedRooms) == []:
             generatedRooms.append(new)
             i += 1
@@ -35,7 +37,7 @@ def display(sizeX, sizeY, roomCount):
 
     screen = pygame.display.set_mode([sizeX, sizeY])
     
-    rooms = RoomRectGenerator(roomCount)
+    rooms = RoomRectGenerator(sizeX, sizeY, roomCount)
     roomPoints = RoomPoints(rooms)
 
     triangulation = BowyerWatson(roomPoints, sizeX, sizeY)

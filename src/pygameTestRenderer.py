@@ -25,7 +25,7 @@ def drawTriangles(triangleList, points = [], sizeX = 1200, sizeY = 700):
             pygame.draw.circle(screen, (255,255,255), triangle.pointC, 2)
 
         for point in points:
-            pygame.draw.circle(screen, (200,255,255), point, 2)
+            pygame.draw.circle(screen, (0,255,255), point, 2)
 
         pygame.display.flip()
 

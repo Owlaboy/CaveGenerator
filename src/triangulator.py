@@ -14,6 +14,19 @@ def badTriangles(triangleList, point):
     
     return badTriangles
 
+def polygonEdges(badTriangleList):
+    allSides = []
+    for triangle in badTriangleList:
+        for side in triangle.sides:
+            allSides.append(side)
+
+    polygon = set()
+    for side in allSides:
+        if allSides.count(side) == 1:
+            polygon.add(side)
+
+    return polygon
+
 def BowyerWatson(roomCenterPoints, sizeX, sizeY):
     superTriangle = Triangle((0,0), (sizeX*2, 0), (0, sizeY*2))
 
@@ -21,14 +34,13 @@ def BowyerWatson(roomCenterPoints, sizeX, sizeY):
 
     for point in roomCenterPoints:
         badTriangles = []
-        # pygameTestRenderer.drawTriangles(triangulation, [point])
-
         for triangle in triangulation: # First find all the triangles that are no longer valid due to the insertion
             if triangle.checkIfPointIsWithinCirle(point):
                 badTriangles.append(triangle) # tarkistetaan oikeat boolean arvot.
         
         # pygameTestRenderer.drawTriangles(badTriangles, [point])
-        polygon = set()
+        polygon = set() # wrong elements added to polygon, check how it works!!!!
+
         if len(badTriangles) == 1:
             for side in badTriangles[0].sides:
                 polygon.add(side)
@@ -37,14 +49,17 @@ def BowyerWatson(roomCenterPoints, sizeX, sizeY):
             while i < len(badTriangles):
                 for side in badTriangles[i].sides:
                     for otherBadTriangle in badTriangles:
-                        if badTriangles[i] == otherBadTriangle:
-                            continue
                         for otherSide in otherBadTriangle.sides:
                             # pygameTestRenderer.drawTriangles([badTriangles[i], otherBadTriangle])
-                            if not (((side.point1 == otherSide.point1) and (side.point2 == otherSide.point2)) or ((side.point1 == otherSide.point2) and (side.point2 == otherSide.point1))):
+                            if side == otherSide:
+                                continue
+                            else:
                                 polygon.add(side)
+                            
                 i+=1
 
+        polygon = polygonEdges(badTriangles)
+        
         for triangle in badTriangles:
             i = 0
             while i < len(triangulation): # voidaan mennä lopusta alkuun!!!
@@ -52,8 +67,7 @@ def BowyerWatson(roomCenterPoints, sizeX, sizeY):
                     triangulation.pop(i)
                 else:
                     i += 1
-        
-        pygameTestRenderer.drawEdges(polygon)
+
         for edge in polygon:
             newTriangle = Triangle(edge.point1, edge.point2, point)
             triangulation.append(newTriangle)
@@ -73,6 +87,7 @@ if __name__ == "__main__":
     triangleboi = Triangle((0,0),(0,4),(4,0))
     
     testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
-    a = BowyerWatson(testingArray[:4], 1000, 500)
+    a = BowyerWatson(testingArray[:], 1000, 500)
     for triangle in a:
         print(str(triangle))
+    pygameTestRenderer.drawTriangles(a)
