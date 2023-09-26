@@ -1,5 +1,6 @@
 
 from classes.triangle import Triangle
+import random
 import pygameTestRenderer
 
 def badTriangles(triangleList, point):
@@ -87,9 +88,16 @@ def BowyerWatson(roomCenterPoints, sizeX, sizeY):
 
 if __name__ == "__main__":
     triangleboi = Triangle((0,0),(0,4),(4,0))
-    
+
     testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
-    a = BowyerWatson(testingArray[:5], 1000, 500)
-    for triangle in a:
-        print(str(triangle))
+    mixedTestintArray = testingArray.copy()
+    random.shuffle(mixedTestintArray)
+    
+    print(testingArray)
+    print(mixedTestintArray)
+
+    a = BowyerWatson(testingArray, 1000, 500)
+    b = BowyerWatson(mixedTestintArray, 1000, 500)
+    
     pygameTestRenderer.drawTriangles(a)
+    pygameTestRenderer.drawTriangles(b)
