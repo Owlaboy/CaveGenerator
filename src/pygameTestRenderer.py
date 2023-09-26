@@ -18,7 +18,7 @@ def drawTriangles(triangleList, points = [], sizeX = 1200, sizeY = 700):
             pygame.draw.line(screen,(255, 0, 0), triangle.pointA, triangle.pointB)
             pygame.draw.line(screen,(255, 0, 0), triangle.pointB, triangle.pointC)
             pygame.draw.line(screen,(255, 0, 0), triangle.pointA, triangle.pointC)
-            pygame.draw.circle(screen, (0, 0, 255), triangle.circleCenter, triangle.radius, width=1)
+            pygame.draw.circle(screen, (0, 0, 255), triangle.circleCenter, triangle.radius, 1)
             
             pygame.draw.circle(screen, (255,255,255), triangle.pointA, 2)
             pygame.draw.circle(screen, (255,255,255), triangle.pointB, 2)
