@@ -33,6 +33,8 @@ def BowyerWatson(roomCenterPoints, sizeX, sizeY):
     triangulation = [superTriangle]
 
     for point in roomCenterPoints:
+
+        pygameTestRenderer.drawTriangles(triangulation, [point])
         badTriangles = []
         for triangle in triangulation: # First find all the triangles that are no longer valid due to the insertion
             if triangle.checkIfPointIsWithinCirle(point):
@@ -87,7 +89,7 @@ if __name__ == "__main__":
     triangleboi = Triangle((0,0),(0,4),(4,0))
     
     testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
-    a = BowyerWatson(testingArray[:], 1000, 500)
+    a = BowyerWatson(testingArray[:5], 1000, 500)
     for triangle in a:
         print(str(triangle))
     pygameTestRenderer.drawTriangles(a)
