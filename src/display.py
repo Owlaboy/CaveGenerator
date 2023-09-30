@@ -5,7 +5,7 @@ import pygame
 from pygame import Rect
 from random import randint
 from triangulator import Triangle, BowyerWatson
-
+from minimalTreeGenerator import prim
 
 def RoomRectGenerator(sizeX, sizeY, RoomCount):
     generatedRooms = []
@@ -30,8 +30,7 @@ def RoomPoints(generatedRooms: list):
         centerPointList.append(room.center)
 
     return centerPointList
-
-    
+  
 def display(sizeX, sizeY, roomCount):
     pygame.init()
 
@@ -41,6 +40,7 @@ def display(sizeX, sizeY, roomCount):
     roomPoints = RoomPoints(rooms)
 
     triangulation = BowyerWatson(roomPoints, sizeX, sizeY)
+    minimumSpanningTree = prim(triangulation)
 
     running = True
     while running:
@@ -55,16 +55,16 @@ def display(sizeX, sizeY, roomCount):
             pygame.draw.rect(screen, (255,255,255), room)
 
         for triangle in triangulation:
-            pygame.draw.line(screen,(255, 0, 0), triangle.pointA, triangle.pointB)
-            pygame.draw.line(screen,(255, 0, 0), triangle.pointB, triangle.pointC)
-            pygame.draw.line(screen,(255, 0, 0), triangle.pointA, triangle.pointC)
+            pygame.draw.line(screen,(0, 255, 0), triangle.pointA, triangle.pointB)
+            pygame.draw.line(screen,(0, 255, 0), triangle.pointB, triangle.pointC)
+            pygame.draw.line(screen,(0, 255, 0), triangle.pointA, triangle.pointC)
             
             pygame.draw.circle(screen, (255,255,255), triangle.pointA, 2)
             pygame.draw.circle(screen, (255,255,255), triangle.pointB, 2)
             pygame.draw.circle(screen, (255,255,255), triangle.pointC, 2)
 
-        
-
+        for edge in minimumSpanningTree:
+            pygame.draw.line(screen,(255, 0, 0), edge.point1, edge.point2)
 
         pygame.display.flip()
 

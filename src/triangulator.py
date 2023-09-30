@@ -3,14 +3,11 @@ from classes.triangle import Triangle
 import random
 import pygameTestRenderer
 
-def badTriangles(triangleList, point):
+def badTrianglesList(triangleList, point):
     badTriangles = []
 
     for triangle in triangleList: # First find all the triangles that are no longer valid due to the insertion
-            print(str(triangle))
-            print(point)
             if triangle.checkIfPointIsWithinCirle(point):
-                print("is bad triangle")
                 badTriangles.append(triangle) # tarkistetaan oikeat boolean arvot.
     
     return badTriangles
@@ -35,35 +32,11 @@ def BowyerWatson(roomCenterPoints, sizeX, sizeY):
 
     for point in roomCenterPoints:
 
-        pygameTestRenderer.drawTriangles(triangulation, [point])
-        badTriangles = []
-        for triangle in triangulation: # First find all the triangles that are no longer valid due to the insertion
-            if triangle.checkIfPointIsWithinCirle(point):
-                badTriangles.append(triangle) # tarkistetaan oikeat boolean arvot.
+        badTriangles = badTrianglesList(triangulation, point) # This function selects the bad triangles from the triangulation.
         
-        # pygameTestRenderer.drawTriangles(badTriangles, [point])
-        polygon = set() # wrong elements added to polygon, check how it works!!!!
-
-        if len(badTriangles) == 1:
-            for side in badTriangles[0].sides:
-                polygon.add(side)
-        else:
-            i = 0
-            while i < len(badTriangles):
-                for side in badTriangles[i].sides:
-                    for otherBadTriangle in badTriangles:
-                        for otherSide in otherBadTriangle.sides:
-                            # pygameTestRenderer.drawTriangles([badTriangles[i], otherBadTriangle])
-                            if side == otherSide:
-                                continue
-                            else:
-                                polygon.add(side)
-                            
-                i+=1
-
-        polygon = polygonEdges(badTriangles)
+        polygon = polygonEdges(badTriangles) # This function generates the polygon from the bad triangles.
         
-        for triangle in badTriangles:
+        for triangle in badTriangles: # This loop removes the bad triangles from the triangulation.
             i = 0
             while i < len(triangulation): # voidaan mennä lopusta alkuun!!!
                 if triangle == triangulation[i]:
@@ -71,7 +44,7 @@ def BowyerWatson(roomCenterPoints, sizeX, sizeY):
                 else:
                     i += 1
 
-        for edge in polygon:
+        for edge in polygon: # This loop adds a new triagle to the triangulation for every edge in the polygon.
             newTriangle = Triangle(edge.point1, edge.point2, point)
             triangulation.append(newTriangle)
 

@@ -54,3 +54,25 @@ def drawEdges(edgeList, points = [], sizeX = 1200, sizeY = 700):
         pygame.display.flip()
 
     pygame.quit()
+
+def drawPoints(pointList, sizeX =1200, sizeY =700):
+    pygame.init()
+
+    screen = pygame.display.set_mode([sizeX, sizeY])
+
+    running = True
+    while running:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill((50, 50, 50))
+
+        for point in pointList:
+            pygame.draw.circle(screen, (255,255,255), point, 2)
+
+
+        pygame.display.flip()
+
+    pygame.quit()
