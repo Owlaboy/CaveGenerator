@@ -1,7 +1,12 @@
 from classes.edge import Edge
 from functions.distanceBetweenPoints import distanceBetweenPoints
-from pygameTestRenderer import drawEdges, drawPoints
+
+# just for testing
+from functions.pygameTestRenderer import drawEdges, drawPoints
 from triangulator import BowyerWatson
+
+MAXDIST = 99999999999999999
+
 
 def prim(triangulationEdges):
     pointList = []
@@ -33,11 +38,11 @@ def prim(triangulationEdges):
             nodeHash[point].remove(pointList[0])
 
     while len(minimumSpanningTree) < len(pointList)-1:
-        shortestDist = 100000000000000000000000000000000000000000
+        shortestDist = MAXDIST
         for addedPoint in addedPoints:
             for point in nodeHash[addedPoint]:
                 distance = distanceBetweenPoints(addedPoint, point)
-                if  distance < shortestDist:
+                if distance < shortestDist:
                     shortestDist = distance
                     sourceNode = addedPoint
                     nextToAdd = point
@@ -50,9 +55,11 @@ def prim(triangulationEdges):
 
     return minimumSpanningTree
 
+
 if __name__ == "__main__":
-    testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234), (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
-    a = BowyerWatson(testingArray[:], 1000, 500 )
+    testingArray = [(812, 422), (686, 311), (782, 512), (288, 67), (793, 234),
+                    (756, 354), (65, 406), (853, 493), (395, 442), (630, 478)]
+    a = BowyerWatson(testingArray[:], 1000, 500)
 
     edges = prim(a)
     drawEdges(edges)

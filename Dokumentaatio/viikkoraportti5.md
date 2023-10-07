@@ -1,0 +1,1 @@
+Käytin chat GPT:tä projektin struktuurin parantamiseen.
