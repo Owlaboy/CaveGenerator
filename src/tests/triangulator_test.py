@@ -1,14 +1,12 @@
 import unittest
 import shapely
-import functions.pygameTestRenderer as pygameTestRenderer
 from triangulator import BowyerWatson
-from display import room_rect_generator, RoomPoints
-
+from functions.roomGenerator import roomRectGenerator, roomPoints
 
 class TestTriangulator(unittest.TestCase):
     def setUp(self):
-        self.room_list = room_rect_generator(1000, 500, 10)
-        self.roomPoints = RoomPoints(self.room_list)
+        self.room_list = roomRectGenerator(1000, 500, 10)
+        self.roomPoints = roomPoints(self.room_list)
         self.triangulation = BowyerWatson(self.roomPoints, 1000, 500)
 
     def test_trianglesDoNotIntersect(self):
