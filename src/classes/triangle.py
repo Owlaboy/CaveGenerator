@@ -8,7 +8,14 @@ sys.path.append('../src')
 
 class Triangle:
     def __init__(self, point1, point2, point3):
-        pointList = [point1, point2, point3]
+        """initializator of the object. This method also calculates the circumcenter/circle of the triangle.
+
+        Args:
+            point1 (tuple): first point
+            point2 (tuple): second point
+            point3 (tuple): third point
+        """
+        self.pointList = [point1, point2, point3]
         self.pointA = point1
         self.pointB = point2
         self.pointC = point3
@@ -45,4 +52,12 @@ class Triangle:
         return hash((self.pointA, self.pointB, self.pointC))
 
     def checkIfPointIsWithinCirle(self, point):
+        """This method tells whether the given point is within the circum circle of the triangle
+
+        Args:
+            point (tuple): the point we want to check
+
+        Returns:
+            bool: true if the point is within the circumcircle, false if it is not
+        """
         return distanceBetweenPoints(point, self.circleCenter) <= self.radius

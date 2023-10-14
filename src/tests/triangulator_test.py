@@ -28,8 +28,16 @@ class TestTriangulator(unittest.TestCase):
                             
                             self.assertEqual(intersects, False)
 
-    def test_polygonDoesntHaveAnIntersectingLine(self):
-        pass
+    def test_allRoomPointsAreInTriangulation(self):
+        points = self.roomPoints.copy()
 
-    def test_test(self):
-        self.assertEqual(1,1)
+        for triangle in self.triangulation:
+            if triangle.pointA in points:
+                points.remove(triangle.pointA)
+            if triangle.pointB in points:
+                points.remove(triangle.pointB)
+            if triangle.pointC in points:
+                points.remove(triangle.pointC)
+                    
+        self.assertEqual(len(points),0)
+            

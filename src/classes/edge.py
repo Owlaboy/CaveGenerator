@@ -2,11 +2,11 @@ from math import sqrt
 
 
 class Edge:
+    """Class for storing all the edges used in rendering and generating the triangulation.
+    """
     def __init__(self, point1, point2):
         self.point1 = point1
         self.point2 = point2
-
-        # self.length = distanceBetweenPoints(point1, point2)
 
     def length(self):
         return sqrt(((self.point1[0] - self.point2[0])**2 + (self.point1[1] - self.point2[1])**2))

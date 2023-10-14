@@ -1,7 +1,9 @@
 import pygame
-
+"""A module for testing what different situations look like. Used mainly for manual testing.
+"""
 
 def drawTriangles(triangleList, points=[], sizeX=1200, sizeY=700):
+
     pygame.init()
 
     screen = pygame.display.set_mode([sizeX, sizeY])

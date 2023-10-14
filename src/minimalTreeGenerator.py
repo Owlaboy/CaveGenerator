@@ -9,6 +9,14 @@ MAXDIST = 99999999999999999
 
 
 def prim(triangulationEdges):
+    """This function  generates a minimum spanning tree out of the given triangulation
+
+    Args:
+        triangulationEdges (list): list of all the triangulation edges
+
+    Returns:
+        list: list of all the edges in the tree
+    """
     pointList = []
     nodeHash = {}
     for triangle in triangulationEdges:

@@ -6,7 +6,17 @@ from functions.tunnels import draw_tunnels
 from functions.triangulation_animator import triangulation_animation
 
 
-def display(sizeX, sizeY, roomCount):
+def display(sizeX, sizeY, roomCount, showAnimation):
+    """The main logic of the program. This function calls the needed functions to generate the rooms of the cave, 
+    generate the triangulation and the minimum spanning tree of the triangulation. It also works as the main renderer
+    of the pygame loop.
+
+    Args:
+        sizeX (int): wanted x size of the screen
+        sizeY (int): wanted y size of the screen
+        roomCount (int): the number of wanted rooms
+        showAnimation (bool): This parameter defines if the animation is show to the user.
+    """    
     pygame.init()
 
     screen = pygame.display.set_mode([sizeX, sizeY])
@@ -27,15 +37,18 @@ def display(sizeX, sizeY, roomCount):
 
         screen.fill((50, 50, 50))
 
+        draw_tunnels(screen, minimumSpanningTree)
+
         for room in rooms:
             pygame.draw.rect(screen, (255, 255, 255), room)
 
-        if first_loop:
+        if showAnimation:
             pygame.display.flip()
             screen.fill((50, 50, 50))
             triangulation_animation(screen, sizeX, sizeY, room_centers)
-        first_loop = False
+        showAnimation = False
 
+        """
         for triangle in triangulation:
             pygame.draw.line(screen, (0, 255, 0),
                              triangle.pointA, triangle.pointB)
@@ -50,7 +63,7 @@ def display(sizeX, sizeY, roomCount):
 
         for edge in minimumSpanningTree:
             pygame.draw.line(screen, (255, 0, 0), edge.point1, edge.point2)
-
+        """
 
         pygame.display.flip()
 

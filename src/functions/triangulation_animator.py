@@ -9,6 +9,15 @@ BLUE = (0,0,255)
 
 
 def draw_triangles(screen, triangle_list, circles=False, triangle_color=GREEN, circle_color=BLUE):
+    """This function renders a list of given triangles
+
+    Args:
+        screen (pygame obj): what screen to render to
+        triangle_list (list): list of the triangles to be drawn
+        circles (bool, optional): Whether to draw the circumcirlces of the triangles. Defaults to False.
+        triangle_color (tuple, optional): what color to give the triangles. Defaults to GREEN.
+        circle_color (tuple, optional): what color to give the circles. Defaults to BLUE.
+    """
     for triangle in triangle_list:
             pygame.draw.line(screen, triangle_color,
                              triangle.pointA, triangle.pointB)
@@ -29,6 +38,14 @@ def draw_edges(screen, edge_list, edge_color=RED):
             pygame.draw.line(screen, edge_color, edge.point1, edge.point2)
 
 def triangulation_animation(screen, size_x, size_y, point_list):
+    """This function renders the whole triangulation step by step. It uses the functions defined in the triangulator.py file
+
+    Args:
+        screen (pygame screen): the screen where to render the animation
+        size_x (int): maximum value of x 
+        size_y (int): maximum value of y
+        point_list (list): list of points that are to be triangulated
+    """
     superTriangle = Triangle((0, 0), (size_x*2, 0), (0, size_y*2))
 
     triangulation = [superTriangle]
@@ -49,7 +66,7 @@ def triangulation_animation(screen, size_x, size_y, point_list):
 
         # Draw all bad triangles.
         badTriangles = triangulator.badTrianglesList(triangulation, point)
-        draw_triangles(screen, badTriangles)
+        draw_triangles(screen, badTriangles, True, RED)
         pygame.draw.circle(screen, (255,255,255), point, 2)
 
         pygame.display.flip()
@@ -57,7 +74,7 @@ def triangulation_animation(screen, size_x, size_y, point_list):
         
         # Draw the polygon
         polygon = triangulator.polygonEdges(badTriangles)
-        draw_edges(screen, polygon)
+        draw_edges(screen, polygon, BLUE)
         pygame.draw.circle(screen, (255,255,255), point, 2)
 
         pygame.display.flip()
