@@ -2,6 +2,8 @@ import triangulator
 import pygame
 from classes.triangle import Triangle
 
+DELAY = 1000
+
 WHITE = (255,255,255)
 RED = (255,0,0)
 GREEN = (0,255,0)
@@ -54,15 +56,19 @@ def triangulation_animation(screen, size_x, size_y, point_list):
         pygame.draw.circle(screen, (255,255,255), point, 2)
 
     pygame.display.flip()
-    pygame.time.wait(1000)
+    pygame.time.wait(DELAY)
+    screen.fill((50, 50, 50))
+
 
     for point in point_list:
+        pygame.display.flip()
+
         # Draw all triangles and show the new added point.
         draw_triangles(screen, triangulation)
         pygame.draw.circle(screen, (255,255,255), point, 2)
         
         pygame.display.flip()
-        pygame.time.wait(1000)
+        pygame.time.wait(DELAY)
 
         # Draw all bad triangles.
         badTriangles = triangulator.badTrianglesList(triangulation, point)
@@ -70,7 +76,7 @@ def triangulation_animation(screen, size_x, size_y, point_list):
         pygame.draw.circle(screen, (255,255,255), point, 2)
 
         pygame.display.flip()
-        pygame.time.wait(1000)
+        pygame.time.wait(DELAY)
         
         # Draw the polygon
         polygon = triangulator.polygonEdges(badTriangles)
@@ -79,7 +85,12 @@ def triangulation_animation(screen, size_x, size_y, point_list):
 
         pygame.display.flip()
         screen.fill((50, 50, 50))
-        pygame.time.wait(1000)
+        pygame.time.wait(DELAY)
 
         triangulator.removeBadTriangles(badTriangles, triangulation)
         triangulator.addNewTriangles(polygon, point, triangulation)
+
+    draw_triangles(screen, triangulation)
+
+    pygame.display.flip()
+    pygame.time.wait(DELAY*2)

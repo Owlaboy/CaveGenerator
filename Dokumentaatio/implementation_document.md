@@ -11,7 +11,7 @@ The program begins with the `main.py` file which first asks for parameters for t
 
 ### Time compelxity
 
-The time complexity of the Bowyer-Watson and Prim's algorithms are _O_(n²)
+The time complexity of the Bowyer-Watson and Prim's algorithms are _O_(n²), where n is the number of points in the triangulation.
 
 ### Shortcomings and possible improvements
 

@@ -20,6 +20,7 @@ class Triangle:
         self.pointB = point2
         self.pointC = point3
         self.points = [point1, point2, point3]
+        self.pointSet = frozenset({point1, point2, point3})
         self.sides = [Edge(point1, point2), Edge(
             point2, point3), Edge(point1, point3)]
 
@@ -46,7 +47,7 @@ class Triangle:
         return f"{self.pointA} ,{self.pointB}, {self.pointC}"
 
     def __eq__(self, other):
-        return ((self.pointA == other.pointA) and (self.pointB == other.pointB) and (self.pointC == other.pointC))
+        return self.pointSet == other.pointSet
 
     def __hash__(self,):
         return hash((self.pointA, self.pointB, self.pointC))
