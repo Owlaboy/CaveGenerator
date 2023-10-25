@@ -18,6 +18,26 @@ class TestFunctions(unittest.TestCase):
         room_list = roomGenerator.roomRectGenerator(self.max_x, self.max_y, self.room_count-9)
         self.assertEqual(len(room_list), 1)
 
+    def test_room_generation_doesnt_overlap(self):
+        lappage = False
+        for i in range(len(self.rooms)):
+            for j in range(i+1, len(self.rooms)):
+                if i == j:
+                    continue
+               
+                # If one rectangle is on left side of other
+                elif self.rooms[i].left >= self.rooms[j].right or self.rooms[i].right <= self.rooms[j].left:
+                    pass
+            
+                # If one rectangle is above other
+                elif self.rooms[i].bottom >= self.rooms[j].top or self.rooms[i].top <= self.rooms[j].bottom:
+                    pass
+
+                else:
+                    lappage = True
+
+        self.assertEqual(lappage, False)          
+
     def test_room_points_length(self):
         room_list = roomGenerator.roomRectGenerator(self.max_x, self.max_y, self.room_count)
         room_points = roomGenerator.roomPoints(room_list)
