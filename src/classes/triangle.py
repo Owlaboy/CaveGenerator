@@ -5,7 +5,6 @@ import sys
 
 sys.path.append('../src')
 
-
 class Triangle:
     def __init__(self, point1, point2, point3):
         """initializator of the object. This method also calculates the circumcenter/circle of the triangle.

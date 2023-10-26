@@ -9,7 +9,7 @@ MAXDIST = 99999999999999999
 
 
 def prim(triangulationEdges):
-    """This function  generates a minimum spanning tree out of the given triangulation
+    """This function  generates a minimum spanning tree out of the given triangulation. The function is convoluted due to the need to convert the data into more usable form.
 
     Args:
         triangulationEdges (list): list of all the triangulation edges

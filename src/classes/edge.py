@@ -19,11 +19,3 @@ class Edge:
 
     def __str__(self):
         return str((self.point1, self.point2))
-
-
-if __name__ == "__main__":
-    a = Edge((0, 1), (1, 0))
-    b = Edge((1, 0), (0, 1))
-
-    print((a == b))
-    print(a.length())

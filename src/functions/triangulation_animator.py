@@ -2,7 +2,7 @@ import triangulator
 import pygame
 from classes.triangle import Triangle
 
-DELAY = 1000
+
 
 WHITE = (255,255,255)
 RED = (255,0,0)
@@ -36,10 +36,17 @@ def draw_triangles(screen, triangle_list, circles=False, triangle_color=GREEN, c
             pygame.draw.circle(screen, WHITE, triangle.pointC, 2)
 
 def draw_edges(screen, edge_list, edge_color=RED):
-     for edge in edge_list:
-            pygame.draw.line(screen, edge_color, edge.point1, edge.point2)
+    """function that draws a list of edge objects
 
-def triangulation_animation(screen, size_x, size_y, point_list):
+    Args:
+        screen (pygame obj): what screen to render to
+        edge_list (list): list of edge objects
+        edge_color (bool, optional): what color to draw the edges. Defaults to RED.
+    """
+    for edge in edge_list:
+        pygame.draw.line(screen, edge_color, edge.point1, edge.point2)
+
+def triangulation_animation(screen, size_x, size_y, point_list, speed=1000):
     """This function renders the whole triangulation step by step. It uses the functions defined in the triangulator.py file
 
     Args:
@@ -47,7 +54,11 @@ def triangulation_animation(screen, size_x, size_y, point_list):
         size_x (int): maximum value of x 
         size_y (int): maximum value of y
         point_list (list): list of points that are to be triangulated
+        speed (int): defines how long to wait between steps
     """
+
+    DELAY = speed
+
     superTriangle = Triangle((0, 0), (size_x*2, 0), (0, size_y*2))
 
     triangulation = [superTriangle]
@@ -87,10 +98,27 @@ def triangulation_animation(screen, size_x, size_y, point_list):
         screen.fill((50, 50, 50))
         pygame.time.wait(DELAY)
 
+        polygon = triangulator.polygonEdges(badTriangles)
+        draw_edges(screen, polygon, BLUE)
+        pygame.draw.circle(screen, (255,255,255), point, 2)
+
+        pygame.display.flip()
+        screen.fill((50, 50, 50))
+        pygame.time.wait(DELAY)
+
         triangulator.removeBadTriangles(badTriangles, triangulation)
         triangulator.addNewTriangles(polygon, point, triangulation)
 
-    draw_triangles(screen, triangulation)
+    finalTriangulation = []
+
+    for triangle in triangulation:
+        if ((0, 0) in triangle.points) or ((size_x*2, 0) in triangle.points) or ((0, size_y*2) in triangle.points):
+            continue
+        else:
+            finalTriangulation.append(triangle)
+
+    screen.fill((50, 50, 50))
+    draw_triangles(screen, finalTriangulation)
 
     pygame.display.flip()
-    pygame.time.wait(DELAY*2)
+    pygame.time.wait(2000)
